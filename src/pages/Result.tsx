@@ -24,8 +24,6 @@ const Result = () => {
   useEffect(() => {
     setOffset(circumference - (percentage / 100) * circumference);
   }, [percentage]);
-
-  // Fill in correct sentence
   const filledQuestions = currentAttempt?.que.map((q) => {
     let answerIndex = 0;
     const filledSentence = q.question.replace(/_____________/g, () => {
