@@ -6,6 +6,7 @@ import ProgressBar from "../components/ProgressBar";
 import QuestionCard from "../components/QuizCard";
 import { Question } from "../types";
 import { answerQuestion } from "../store/slice/quizSlice";
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 const Quiz = () => {
     const [isQuizStart, setIsQuizStart] = useState(false)
     const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Quiz = () => {
     const [isOpen, setIsOpen] = useState(false)
     useEffect(() => {
         if (questions?.length === 0) {
-            fetch("http://localhost:3001/data")
+            fetch(`${API_BASE_URL}/data`)
                 .then((res) => res.json())
                 .then((data) => setQuestions(data.questions));
         }
