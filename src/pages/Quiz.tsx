@@ -20,7 +20,7 @@ const Quiz = () => {
             const isLocal = window.location.hostname === "localhost";
             const dataURL = isLocal
                 ? "http://localhost:3001/data"
-                : "/data/questions.json";
+                : "/questions.json";
             fetch(dataURL)
                 .then((res) => res.json())
                 .then((data) => setQuestions(data.questions))
