@@ -6,7 +6,7 @@ import ProgressBar from "../components/ProgressBar";
 import QuestionCard from "../components/QuizCard";
 import { Question } from "../types";
 import { answerQuestion } from "../store/slice/quizSlice";
-const API_BASE_URL = import.meta.env.VITE_API_URL || window.location.origin;
+
 const Quiz = () => {
     const [isQuizStart, setIsQuizStart] = useState(false)
     const dispatch = useDispatch();
