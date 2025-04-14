@@ -36,11 +36,11 @@ const Quiz = () => {
         }
     };
     useEffect(() => {
-        if (questions?.length > 0 && currentIndex +1 === questions?.length) {
+        if (questions?.length > 0 && currentIndex  === questions?.length) {
             navigate('/result');
         }
     }, [currentIndex, questions?.length]);
-    console.log(questions,"qu")
+    console.log(questions,"qu", currentIndex)
     return (
         <div className="min-h-screen ">
             {
