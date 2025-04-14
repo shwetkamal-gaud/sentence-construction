@@ -44,7 +44,7 @@ const Quiz = () => {
     return (
         <div className="min-h-screen ">
             {
-                !isQuizStart ? <StarterComponent que={questions} setIsQuizStart={setIsQuizStart} /> : questions.length > currentIndex && (
+                !isQuizStart ? <StarterComponent que={questions} setIsQuizStart={setIsQuizStart} /> : questions?.length > currentIndex && (
                     <div className={`h-[100vh] w-full flex items-center justify-center px-3 `}>
                         <div className="rounded-xl flex flex-col gap-3 shadow-md w-full max-w-3xl p-3">
                             <div className="flex items-center w-full justify-between">
