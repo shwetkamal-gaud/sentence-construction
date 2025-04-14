@@ -8,11 +8,11 @@ type Props = {
     questionIndex: number;
     timer: number,
     setTimer: React.Dispatch<React.SetStateAction<number>>
-    
+    isOpen: boolean
 
 };
 
-export default function QuestionCard({ questionSentence, setTimer, onNext, questionIndex }: Props) {
+export default function QuestionCard({ questionSentence, setTimer, onNext, questionIndex, isOpen }: Props) {
     const [parts, setParts] = useState<string[]>([]);
     const [numberOfBlanks, setNumberOfBlanks] = useState(0);
 
@@ -35,20 +35,23 @@ export default function QuestionCard({ questionSentence, setTimer, onNext, quest
             setSelected([]);
         }
 
-        setTimer(10);
+        setTimer(30);
     }, [questionSentence]);
     useEffect(() => {
-        const interval = setInterval(() => {
-            setTimer((prev) => {
-                if (prev === 1) {
-                    handleAutoNext();
-                    return 0;
-                }
-                return prev - 1;
-            });
-        }, 1000);
+        let interval: NodeJS.Timeout
+        if (!isOpen) {
+            interval = setInterval(() => {
+                setTimer((prev) => {
+                    if (prev === 1) {
+                        handleAutoNext();
+                        return 0;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
+        }
         return () => clearInterval(interval);
-    }, []);
+    }, [isOpen]);
 
     const handleSelect = (word: string) => {
         const firstEmptyIndex = selected.findIndex(item => item === null);
@@ -101,7 +104,7 @@ export default function QuestionCard({ questionSentence, setTimer, onNext, quest
                 ))}
             </p>
 
-            <div className="grid grid-cols-4 gap-4 mb-4 mt-6">
+            <div className="grid md:grid-cols-4 grid-cols-2 gap-4 mb-4 mt-6">
                 {questionSentence.options?.map((opt, idx) => {
                     const optionCount = questionSentence.options?.filter(o => o === opt).length || 1;
                     const selectedCount = selected.filter(s => s === opt).length;
@@ -110,7 +113,7 @@ export default function QuestionCard({ questionSentence, setTimer, onNext, quest
 
                     return (
                         <button
-                            key={`${opt}-${idx}`} 
+                            key={`${opt}-${idx}`}
                             onClick={() => handleSelect(opt)}
                             className={`${isHidden ? 'hidden' : ''} p-2 border border-[#BFC6C6] rounded-lg`}
                         >

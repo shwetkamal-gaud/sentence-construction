@@ -12,7 +12,7 @@ const Quiz = () => {
     const navigate = useNavigate();
     const [questions, setQuestions] = useState<Question[]>([])
     const [currentIndex, setCurrentIndex] = useState(0)
-    const [timer, setTimer] = useState(10);
+    const [timer, setTimer] = useState(30);
     const [isOpen, setIsOpen] = useState(false)
     useEffect(() => {
         if (questions?.length === 0) {
@@ -24,19 +24,24 @@ const Quiz = () => {
 
     const handleNext = (answer: string[], isCorrect: boolean) => {
         dispatch(answerQuestion({ answer, isCorrect }));
-        if (currentIndex + 1 < questions.length) {
+        if (currentIndex  +1< questions.length) {
+            console.log("navi", currentIndex)
             setCurrentIndex(prev => prev + 1);  
-        } else {
-            
-            navigate("/result"); 
-        }
+        } 
     };
+    useEffect(() => {
+        if (questions.length > 0 && currentIndex === questions.length) {
+            
+            navigate('/result');
+        }
+    }, [currentIndex, questions.length]);
+    
      return (
         <div className="min-h-screen ">
             {
                 !isQuizStart ? <StarterComponent que={questions} setIsQuizStart={setIsQuizStart} /> : questions.length > currentIndex && (
-                    <div className="h-[100vh] w-full flex items-center justify-center">
-                        <div className="rounded-xl flex flex-col gap-3 shadow-md w-[45rem] p-3">
+                    <div className={`h-[100vh] w-full flex items-center justify-center px-3 `}>
+                         <div className="rounded-xl flex flex-col gap-3 shadow-md w-full max-w-3xl p-3">
                             <div className="flex items-center w-full justify-between">
                                 <p className="mb-4 text-black">Time Left: {timer}s</p>
                                 <button className="border rounded-lg p-1 text-black" onClick={() => setIsOpen((prev) => !prev)}>Quit</button>
@@ -45,6 +50,7 @@ const Quiz = () => {
                                 <ProgressBar current={currentIndex + 1} total={questions?.length} />
                                 <QuestionCard
                                     timer={timer}
+                                    isOpen={isOpen}
                                     setTimer={setTimer}
                                     questionSentence={questions[currentIndex]}
                                     questionIndex={currentIndex}
@@ -56,7 +62,7 @@ const Quiz = () => {
                 )
             }
             {isOpen &&
-                <div id="default-modal" tabIndex={-1} aria-hidden="true" className=" overflow-y-auto overflow-x-hidden fixed top-[50%] right-[50%]  z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                 <div id="default-modal" tabIndex={-1} aria-hidden="true" className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-300 bg-opacity-5 ">
                     <div className="relative p-4 w-full max-w-2xl max-h-full">
 
                         <div className="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
@@ -83,6 +89,7 @@ const Quiz = () => {
                                 <button onClick={() => {
                                     setIsOpen((prev) => !prev);
                                     setIsQuizStart((prev) => !prev)
+                                    setCurrentIndex(0)
                                 }} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Yes</button>
                                 <button onClick={() => setIsOpen((prev) => !prev)} type="button" className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No</button>
                             </div>

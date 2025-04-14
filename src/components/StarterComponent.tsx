@@ -15,8 +15,7 @@ const StarterComponent: React.FC<Prop> = ({ setIsQuizStart, que }) => {
       <NavComponent />
       <div className="flex flex-col gap-8 flex-grow h-full items-center justify-center">
         <EditorIcon />
-        <div className="flex items-center flex-col gap-3 ">
-
+        <div className="flex items-center flex-col px-3 gap-3 ">
           <h1 className="text-3xl font-bold text-black">
             Sentence Construction
           </h1>
@@ -24,9 +23,9 @@ const StarterComponent: React.FC<Prop> = ({ setIsQuizStart, que }) => {
             Select the correct words to complete the sentence by arranging the provided options in the right order.
           </p>
         </div>
-        <div className="flex gap-3 items-center justify-center divide-x-black">
+        <div className=" flex px-3 gap-5 divide-x divide-solid divide-gray-300">
           {[{ text: 'Time Per Question', subTetx: '30s' }, { text: 'Total Questions', subTetx: '10' }, { text: 'Coins', subTetx: '0' }].map((item, id) => (
-            <div key={id} className="flex gap-6 items-center ">
+            <div key={id} className="flex gap-6 pe-5 items-center ">
               <div className="flex flex-col gap-3">
                 <h3 className="text-xl text-[#2A2D2D] font-medium">
                   {item.text}
@@ -36,7 +35,7 @@ const StarterComponent: React.FC<Prop> = ({ setIsQuizStart, que }) => {
                   </span>}
                   {item.subTetx}</p>
               </div>
-              {id !== 2 && <div className="w-[1px] h-12  bg-[#DFE3E3]"></div>}
+              
             </div>
           ))}
         </div>

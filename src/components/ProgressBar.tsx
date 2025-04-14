@@ -8,7 +8,7 @@ interface ProgressBarProps {
 const ProgressBar: React.FC<ProgressBarProps> = ({ current, total }) => {
 
     return (
-        <div className="w-full flex justify-between px-4">
+        <div className="w-full flex flex-wrap gap-2  px-4">
             {new Array(total).fill(0).map((item, id)=>(
                 <div key={id} className={`rounded-lg w-15  h-1 ${current <= id ? 'bg-[#DFE3E3]' :'bg-[#F2A531]'}`}>
 
