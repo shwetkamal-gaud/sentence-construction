@@ -39,7 +39,7 @@ const Quiz = () => {
         if (questions?.length > 0 && currentIndex === questions?.length) {
             navigate('/result');
         }
-    }, [currentIndex, questions.length]);
+    }, [currentIndex, questions?.length]);
 
     return (
         <div className="min-h-screen ">
