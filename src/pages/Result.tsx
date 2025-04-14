@@ -119,7 +119,7 @@ const Result = () => {
         </div>
 
         <div className="flex flex-col gap-6 w-full max-w-3xl px-4">
-          {currentAttempt.que.map((item, id) => (
+          {currentAttempt.que.map((_, id) => (
             <div
               key={id}
               className="flex flex-col gap-4 bg-white  shadow-md rounded-lg"
