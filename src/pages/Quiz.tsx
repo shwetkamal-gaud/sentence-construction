@@ -34,13 +34,11 @@ const Quiz = () => {
             console.log("navi", currentIndex)
             setCurrentIndex(prev => prev + 1);
         }
-    };
-    useEffect(() => {
-        if (questions?.length > 0 && currentIndex  === questions?.length -1) {
-            console.log("hell")
+        else{
             navigate('/result');
         }
-    }, [currentIndex, questions?.length]);
+    };
+    
     console.log(questions,"qu", currentIndex)
     return (
         <div className="min-h-screen ">
