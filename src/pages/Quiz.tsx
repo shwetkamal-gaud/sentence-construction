@@ -23,7 +23,7 @@ const Quiz = () => {
                 : "/questions.json";
             fetch(dataURL)
                 .then((res) => res.json())
-                .then((data) => setQuestions(data.questions))
+                .then((data) => {console.log(data); setQuestions(data.questions)})
                 .catch((err) => console.error("Fetch error:", err))
         }
     }, [dispatch, questions?.length]);
