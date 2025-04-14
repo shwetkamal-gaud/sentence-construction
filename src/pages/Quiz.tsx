@@ -40,7 +40,7 @@ const Quiz = () => {
             navigate('/result');
         }
     }, [currentIndex, questions?.length]);
-
+    console.log(questions,"qu")
     return (
         <div className="min-h-screen ">
             {
