@@ -36,8 +36,7 @@ const Quiz = () => {
         }
     };
     useEffect(() => {
-        if (questions.length > 0 && currentIndex === questions.length) {
-
+        if (questions?.length > 0 && currentIndex === questions?.length) {
             navigate('/result');
         }
     }, [currentIndex, questions.length]);
