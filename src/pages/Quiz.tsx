@@ -17,33 +17,37 @@ const Quiz = () => {
     const [isOpen, setIsOpen] = useState(false)
     useEffect(() => {
         if (questions?.length === 0) {
-            fetch(`${API_BASE_URL}/data`)
+            const isLocal = window.location.hostname === "localhost";
+            const dataURL = isLocal
+                ? "http://localhost:3001/data"
+                : "/data/questions.json";
+            fetch(dataURL)
                 .then((res) => res.json())
                 .then((data) => setQuestions(data.questions))
-                .catch((err)=> console.error("Fetch error:", err))
+                .catch((err) => console.error("Fetch error:", err))
         }
     }, [dispatch, questions?.length]);
 
     const handleNext = (answer: string[], isCorrect: boolean) => {
         dispatch(answerQuestion({ answer, isCorrect }));
-        if (currentIndex  +1< questions.length) {
+        if (currentIndex + 1 < questions.length) {
             console.log("navi", currentIndex)
-            setCurrentIndex(prev => prev + 1);  
-        } 
+            setCurrentIndex(prev => prev + 1);
+        }
     };
     useEffect(() => {
         if (questions.length > 0 && currentIndex === questions.length) {
-            
+
             navigate('/result');
         }
     }, [currentIndex, questions.length]);
-    
-     return (
+
+    return (
         <div className="min-h-screen ">
             {
                 !isQuizStart ? <StarterComponent que={questions} setIsQuizStart={setIsQuizStart} /> : questions.length > currentIndex && (
                     <div className={`h-[100vh] w-full flex items-center justify-center px-3 `}>
-                         <div className="rounded-xl flex flex-col gap-3 shadow-md w-full max-w-3xl p-3">
+                        <div className="rounded-xl flex flex-col gap-3 shadow-md w-full max-w-3xl p-3">
                             <div className="flex items-center w-full justify-between">
                                 <p className="mb-4 text-black">Time Left: {timer}s</p>
                                 <button className="border rounded-lg p-1 text-black" onClick={() => setIsOpen((prev) => !prev)}>Quit</button>
@@ -64,7 +68,7 @@ const Quiz = () => {
                 )
             }
             {isOpen &&
-                 <div id="default-modal" tabIndex={-1} aria-hidden="true" className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-300 bg-opacity-5 ">
+                <div id="default-modal" tabIndex={-1} aria-hidden="true" className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-300 bg-opacity-5 ">
                     <div className="relative p-4 w-full max-w-2xl max-h-full">
 
                         <div className="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
